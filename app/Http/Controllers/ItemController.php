@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -11,7 +12,12 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        //データを全て取得
+        $items = Item::get();
+        $data["items"] = $items;
+
+        //ページの表示
+        return view("item.index",$data);
     }
 
     /**
@@ -20,6 +26,7 @@ class ItemController extends Controller
     public function create()
     {
         //
+        return view("item.create");
     }
 
     /**
@@ -27,7 +34,13 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //データ取得
+        $data = $request->all();
+        //データベースへ保存
+        Item::create($data);
+        //リダイレクト
+        return redirect(route("item.index"));
+        //dd($request);
     }
 
     /**
