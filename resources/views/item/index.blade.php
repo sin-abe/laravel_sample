@@ -15,7 +15,7 @@
                     </tr>
                     @foreach($items as $item)
                     <tr>
-                        <td></td>
+                        <td><a href="{{ route('item.edit', $item->id) }}">編集</a></td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->price }}</td>
                     </tr>
