@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ItemRequest;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
@@ -32,11 +33,12 @@ class ItemController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ItemRequest $request)
     {
         //データ取得
         $data = $request->all();
         //データベースへ保存
+        //Eloquent
         Item::create($data);
         //リダイレクト
         return redirect(route("item.index"));

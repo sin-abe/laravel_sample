@@ -10,8 +10,8 @@
                 <table class="table">
                     <tr>
                         <th></th>
-                        <th>商品名</th>
-                        <th>価格</th>
+                        <th>{{ __("messages.item_name")}}</th>
+                        <th>{{ __("messages.price") }}</th>
                     </tr>
                     @foreach($items as $item)
                     <tr>
