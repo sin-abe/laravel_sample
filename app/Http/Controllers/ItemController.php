@@ -11,11 +11,24 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //データを全て取得
-        $items = Item::get();
-        $data["items"] = $items;
+        $order_column = ($request->order_column) ? $request->order_column : 'id';
+        $order_value = ($request->order_value) ? $request->order_value : 'asc';
+        if ($item_name = $request->item_name) {
+            //SELECT * FROM items WHERE name LIKE '%xxxx%' ORDER BY XXX;
+            $items = Item::where('name', 'LIKE', "%{$item_name}%")
+                ->orderBy($order_column, $order_value)
+                ->get();
+        } else {
+            //SELECT * FROM items;
+            $items = Item::orderBy($order_column, $order_value)->get();
+        }
+
+        $data = [
+            'items' => $items,
+            'item_name' => $item_name,
+        ];
 
         //ページの表示
         return view("item.index",$data);
